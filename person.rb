@@ -9,4 +9,10 @@ class Person
 
     attr_reader :id
 
+    private
+
+    def is_of_age?
+        @age >= 18
+    end
+
 end
