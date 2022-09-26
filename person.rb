@@ -4,5 +4,9 @@ class Person
     @name = name
     @age = age
     end
-    
+
+    attr_accessor :age, :name
+
+    attr_reader :id
+
 end
