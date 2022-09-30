@@ -7,10 +7,11 @@ class Person < Nameable
     @name = name
     @age = age
     @parent_permission = parent_permission
+    @rentals = []
   end
   # rubocop:enable Lint/MissingSuper
 
-  attr_accessor :age, :name
+  attr_accessor :age, :name, :rentals
 
   attr_reader :id
 
