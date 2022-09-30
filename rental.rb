@@ -1,4 +1,4 @@
-class Rentals
+class Rental
     attr_accessor :date
 
     def initialize(date)
