@@ -23,7 +23,7 @@ if (0..9).cover? choice
     when 3
         create_person
     when 4
-        puts "Create a book"
+        create_book
     when 5
         p "Create a rental"
     when 6
@@ -62,4 +62,13 @@ def create_person
         end
 end
 
+def create_book
+    puts "Title: "
+    title = gets.chomp
+    puts "Author: "
+    author = gets.chomp
+    puts "Book created successfully"
+end
+
+def 
 main
