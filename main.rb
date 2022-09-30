@@ -17,13 +17,13 @@ if (0..9).cover? choice
 
     case choice
     when 1
-        p "List all books"
+        puts "List all books"
     when 2
-        p "List all people"
+        puts "List all people"
     when 3
-        p "Create a person"
+        create_person
     when 4
-        p "Create a book"
+        puts "Create a book"
     when 5
         p "Create a rental"
     when 6
@@ -34,6 +34,32 @@ if (0..9).cover? choice
         p "wrong input"
     end
 end
+end
+
+def create_person
+    age = 0
+    name = ""
+    permitt = ""
+    puts "Do you want to create a student (1) or a teacher (2)? [Input the number]"
+        user_input = gets.chomp.to_i
+        if (1..2).cover? user_input
+            puts "Age: "
+            age = gets.chomp.to_i
+            puts "Name: "
+            name = gets.chomp
+            case user_input
+            when 1
+            puts "Has parent permission? [Y/N]: "
+            permitt = gets.chomp
+            permitt == 'y' || 'Y' || 'n' || 'N' ? permitt : permitt = nil
+            when 2
+                puts "Specialization"
+                spec = gets.chomp
+            else
+                nil
+            end
+            puts "person created successfully"
+        end
 end
 
 main
