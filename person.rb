@@ -11,7 +11,7 @@ class Person < Nameable
   end
   # rubocop:enable Lint/MissingSuper
 
-  attr_accessor :age, :name, :rentals
+  attr_accessor :age, :name, :rentals, :parent_permission
 
   attr_reader :id
 
