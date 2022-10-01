@@ -44,20 +44,19 @@ class App
     age = gets.chomp.to_i
     print 'Name: '
     name = gets.chomp
-    peeps = Person.new(age, name)
     case user_input
     when 1
       puts 'Has parent permission? [Y/N]: '
       permitt = gets.chomp
       # rubocop:disable Lint/LiteralAsCondition
-      permitt == 'y' || 'Y' || 'n' || 'N' ? permitt : permitt = nil
-      peeps.parent_permission = false if permitt == 'n' || 'N'
+      permitt == 'y' || 'Y' || 'n' || 'N' ? permitt = true : permitt = nil
+      permitt = false if permitt == 'n' || 'N'
       # rubocop:enable Lint/LiteralAsCondition
-      @people << Student.new
+      @people << Student.new(age, name, parent_permission: permitt)
     when 2
-      print 'Specialization'
+      print 'Specialization: '
       spec = gets.chomp
-      @people << Teacher.new(spec)
+      @people << Teacher.new(age, name, spec, parent_permission: true)
     end
     puts 'person created successfully'
   end
