@@ -13,8 +13,7 @@ class App
   end
 
   # rubocop:disable Metrics/PerceivedComplexity
-  # rubocop:disable Metrics/CyclomaticComplexity
-  # rubocop:disable Metrics/MethodLength: Method has too many lines.
+  # rubocop:disable Metrics/CyclomaticComplexity: Method has too many lines.
 
   def list_books
     if @books.empty?
@@ -49,7 +48,7 @@ class App
       puts 'Has parent permission? [Y/N]: '
       permitt = gets.chomp
       # rubocop:disable Lint/LiteralAsCondition
-      permitt == 'y' || 'Y' || 'n' || 'N' ? permitt = true : permitt = nil
+      permitt = permitt == 'y' || 'Y' || 'n' || 'N' ? true : nil
       permitt = false if permitt == 'n' || 'N'
       # rubocop:enable Lint/LiteralAsCondition
       @people << Student.new(age, name, parent_permission: permitt)
@@ -135,6 +134,5 @@ class App
     end
   end
 end
-# rubocop:enable Metrics/MethodLength: Method has too many lines.
-# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/CyclomaticComplexity: Method has too many lines.
 # rubocop:enable Metrics/PerceivedComplexity
