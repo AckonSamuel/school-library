@@ -4,8 +4,7 @@ require_relative 'book'
 require_relative 'rental'
 
 class App
-
-    attr_accessor :rentals, :books, :people
+  attr_accessor :rentals, :books, :people
 
   def initialize
     @books = []
@@ -72,12 +71,6 @@ class App
     puts 'Book created successfully'
   end
 
-  def create_rental
-    puts "Select a book from the following list by number" 
-    @people.each_with_index do |person, index|
-        puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-  end
-
   def list_rentals_by_book_id
     puts 'Select a book from the following list by number'
     @books.each_with_index { |book, index| puts "#{index}) Title: #{book.title}, Author: #{book.author}" }
@@ -100,7 +93,7 @@ class App
     end
     true
   end
-  
+
   def create_rental
     if check_if_books_and_people_exist
       begin
@@ -111,7 +104,7 @@ class App
         person_index = gets.chomp.to_i
       rescue StandardError
         puts 'Invalid input, please try again'
-        retry 
+        retry
       end
       puts # empty line
       puts 'Input date e.g. 2021-01-01'
@@ -142,8 +135,7 @@ class App
       puts 'ID not found'
     end
   end
+end
 # rubocop:enable Metrics/MethodLength: Method has too many lines.
 # rubocop:enable Metrics/CyclomaticComplexity
 # rubocop:enable Metrics/PerceivedComplexity
-
-end
