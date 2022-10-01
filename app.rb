@@ -111,7 +111,7 @@ class App
         person_index = gets.chomp.to_i
       rescue StandardError
         puts 'Invalid input, please try again'
-        retry # retry the begin block
+        retry 
       end
       puts # empty line
       puts 'Input date e.g. 2021-01-01'
@@ -142,8 +142,8 @@ class App
       puts 'ID not found'
     end
   end
-end
-
 # rubocop:enable Metrics/MethodLength: Method has too many lines.
 # rubocop:enable Metrics/CyclomaticComplexity
 # rubocop:enable Metrics/PerceivedComplexity
+
+end
