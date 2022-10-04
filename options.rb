@@ -8,6 +8,5 @@ class Option
     puts '5 - Create a rental'
     puts '6 - List all rentals for a given person id'
     puts '7 - Exit'
-   end
+  end
 end
-  

@@ -4,10 +4,8 @@ require_relative 'options'
 CHOOSE = Choose.new
 OPTION = Option.new
 
-
 class Main
-  def display_menu # rubocop:disable Metrics/CyclomaticComplexity
-
+  def display_menu
     OPTION.option
 
     user_input = gets.chomp.to_i
