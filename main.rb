@@ -1,13 +1,13 @@
 require_relative 'choose'
 require_relative 'options'
 
-APP = App.new
+CHOOSE = Choose.new
 OPTION = Option.new
 
 
 class Main
   def display_menu # rubocop:disable Metrics/CyclomaticComplexity
-    
+
     OPTION.option
 
     user_input = gets.chomp.to_i
