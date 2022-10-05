@@ -2,6 +2,7 @@ class Book
   attr_accessor :title, :author
 
   def initialize(title, author)
+    @id = Random.rand(1..1000)
     @title = title
     @author = author
     @rentals = []
@@ -12,6 +13,19 @@ class Book
   end
 
   def disintegrate
-    [@title, @author, @rentals]
+    { 'id' => @id, 'title' => @title, 'author' => @author }
   end
+
+  def id
+    @id
+  end
+
+  def title
+    @title
+  end
+
+  def author
+    @author
+  end
+
 end

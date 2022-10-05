@@ -18,7 +18,7 @@ class Student < Person
   end
 
   def disintegrate
-    [@id, @name, @age, @parent_permission, @rentals]
+    { 'id' => @id, 'name' => @name, 'age' => @age, 'parent_permission' => @parent_permission }
   end
 
 end

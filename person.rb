@@ -27,6 +27,10 @@ class Person < Nameable
     @rentals << rental
   end
 
+  def id
+    @id
+  end
+  
   private
 
   # rubocop:disable Naming/PredicateName

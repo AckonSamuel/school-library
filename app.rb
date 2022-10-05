@@ -58,6 +58,7 @@ class App
       # rubocop:enable Lint/LiteralAsCondition
       student = Student.new(age, name, parent_permission: permitt)
       @people << student
+      # student.instance_variables.each { |var| @peopleHash[var.to_s.delete("@")] = student.instance_variables_get(var) }
       @peopleArr << student.disintegrate
     when 2
       print 'Specialization: '
@@ -160,8 +161,6 @@ class App
     }
 
     json1 = JSON.generate(foo0, opts)
-
-    obj1 = JSON.parse(json1, create_additions: true)
 
     puts json1
 
