@@ -16,4 +16,9 @@ class Student < Person
   def play_hooky
     "¯\(ツ)/¯"
   end
+
+  def disintegrate
+    [@id, @name, @age, @parent_permission, @rentals]
+  end
+
 end

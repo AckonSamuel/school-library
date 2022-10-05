@@ -10,6 +10,9 @@ class App
     @books = []
     @rentals = []
     @people = []
+    @bookArr = []
+    @rentalsArr = []
+    @peopleArr = []
   end
 
   # rubocop:disable Metrics/PerceivedComplexity
@@ -51,11 +54,15 @@ class App
       permitt = permitt == 'y' || 'Y' || 'n' || 'N' ? true : nil
       permitt = false if permitt == 'n' || 'N'
       # rubocop:enable Lint/LiteralAsCondition
-      @people << Student.new(age, name, parent_permission: permitt)
+      student = Student.new(age, name, parent_permission: permitt)
+      @people << student
+      @peopleArr << student.disintegrate
     when 2
       print 'Specialization: '
       spec = gets.chomp
-      @people << Teacher.new(age, name, spec, parent_permission: true)
+      teacher = Teacher.new(age, name, spec, parent_permission: true)
+      @people << teacher
+      @peopleArr << teacher.disintegrate
     end
     puts 'person created successfully'
   end
@@ -133,6 +140,39 @@ class App
       puts 'ID not found'
     end
   end
+
+  # def preserve
+
+  #   foo0 = Foo.new(@people, @books, @rentals)
+
+  #   opts = {
+  #     array_nl: "\n",
+  #     object_nl: "\n",
+  #     indent: '  ',
+  #     space_before: ' ',
+  #     space: ' '
+  #   }
+
+  #   json1 = JSON.generate(foo0, opts)
+
+  #   obj1 = JSON.parse(json1, create_additions: true)
+
+  #   puts json1, @people
+
+  # end
+
+  def people
+    puts "#{@peopleArr}"
+  end
+
+  def rentals
+    puts "#{@rentals}"
+  end
+
+  def books
+    puts "#{@books}"
+  end
+
 end
 # rubocop:enable Metrics/CyclomaticComplexity: Method has too many lines.
 # rubocop:enable Metrics/PerceivedComplexity
