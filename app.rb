@@ -1,3 +1,5 @@
+require 'json'
+require_relative 'app_addition'
 require_relative 'student'
 require_relative 'teacher'
 require_relative 'book'
@@ -72,7 +74,9 @@ class App
     title = gets.chomp
     print 'Author: '
     author = gets.chomp
-    @books << Book.new(title, author)
+    book = Book.new(title, author)
+    @books << book
+    @bookArr << book.disintegrate
     puts 'Book created successfully'
   end
 
@@ -116,7 +120,9 @@ class App
       print 'Date: '
       date = gets.chomp
       puts 'Sorry, You input invalid date' unless date.match?(/\d{4}-\d{2}-\d{2}/)
-      @rentals << Rental.new(date, @books[book_index], @people[person_index])
+      rental = Rental.new(date, @books[book_index], @people[person_index])
+      @rentals << rental
+      @rentalsArr << rental.disintegrate
       puts 'Rental created successfully'
     else
       puts 'Cannot create rental because there are no books or people in the app' end
@@ -141,25 +147,25 @@ class App
     end
   end
 
-  # def preserve
+  def preserve
 
-  #   foo0 = Foo.new(@people, @books, @rentals)
+    foo0 = Foo.new(@peopleArr, @bookArr, @rentalsArr)
 
-  #   opts = {
-  #     array_nl: "\n",
-  #     object_nl: "\n",
-  #     indent: '  ',
-  #     space_before: ' ',
-  #     space: ' '
-  #   }
+    opts = {
+      array_nl: "\n",
+      object_nl: "\n",
+      indent: '  ',
+      space_before: ' ',
+      space: ' '
+    }
 
-  #   json1 = JSON.generate(foo0, opts)
+    json1 = JSON.generate(foo0, opts)
 
-  #   obj1 = JSON.parse(json1, create_additions: true)
+    obj1 = JSON.parse(json1, create_additions: true)
 
-  #   puts json1, @people
+    puts json1
 
-  # end
+  end
 
   def people
     puts "#{@peopleArr}"

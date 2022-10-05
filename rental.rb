@@ -11,4 +11,5 @@ class Rental
     @person = person
     @person.add_rental(self)
   end
+
 end
