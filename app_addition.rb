@@ -1,22 +1,19 @@
 class Foo
 
-    attr_accessor :bar, :baz, :bat
+    attr_accessor :bar, :baz
 
-  def initialize(bar, baz, bat)
+  def initialize(bar, baz)
     @bar = bar
     @baz = baz
-    @bat = bat
   end
 
     # Serialize Foo object with its class name and arguments
     def to_json(*args)
       {
-        JSON.create_id  => 'library',
-        'data'          => {
-              'people'    => @bar,
-              'books'     => @baz,
-              'rentals'   => @bat,
-        },
+
+        JSON.create_id  => @bar,
+        'data'          => @baz,
+
       }.to_json(*args)
     end
     # Deserialize JSON string by constructing new Foo object with arguments.

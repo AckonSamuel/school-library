@@ -150,7 +150,9 @@ class App
 
   def preserve
 
-    foo0 = Foo.new(@peopleArr, @bookArr, @rentalsArr)
+    person = Foo.new('people', @peopleArr)
+    book = Foo.new('book', @bookArr)
+    rental = Foo.new('rental', @rentalsArr)
 
     opts = {
       array_nl: "\n",
@@ -160,10 +162,9 @@ class App
       space: ' '
     }
 
-    json1 = JSON.generate(foo0, opts)
-
-    puts json1
-
+    File.write('./books.json', JSON.dump(books, opts))
+    File.write('./person.json', JSON.dump(person, opts))
+    File.write('./rental.json', JSON.dump(rental, opts))
   end
 
   def people
