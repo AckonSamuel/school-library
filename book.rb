@@ -11,7 +11,7 @@ class Book
     @rentals << rental
   end
 
-  def distintegrate
+  def disintegrate
     [@title, @author, @rentals]
   end
 end

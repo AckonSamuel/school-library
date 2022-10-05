@@ -22,7 +22,7 @@ class Choose
     when 6
       APP.list_rentals_by_person_id
     when 7
-       APP.people
+       APP.preserve
       # puts 'Thank you for using this app!'
       # exit
     else puts 'Invalid option' end
