@@ -154,17 +154,9 @@ class App
     book = Foo.new('book', @bookArr)
     rental = Foo.new('rental', @rentalsArr)
 
-    opts = {
-      array_nl: "\n",
-      object_nl: "\n",
-      indent: '  ',
-      space_before: ' ',
-      space: ' '
-    }
-
-    File.write('./books.json', JSON.dump(books, opts))
-    File.write('./person.json', JSON.dump(person, opts))
-    File.write('./rental.json', JSON.dump(rental, opts))
+    File.write('./books.json', JSON.dump(book))
+    File.write('./person.json', JSON.dump(person))
+    File.write('./rental.json', JSON.dump(rental))
   end
 
   def people
