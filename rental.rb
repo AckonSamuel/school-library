@@ -13,7 +13,6 @@ class Rental
   end
 
   def disintegrate
-    { 'date' => @date, 'book_id' => @book.id, 'person_id' => @person.id }
+    { 'date' => @date, 'book_title' => @book.title, 'person_id' => @person.id }
   end
-
 end

@@ -13,6 +13,6 @@ class Teacher < Person
   end
 
   def disintegrate
-    { 'id' => @id, 'name' => @name, 'age' => @age, 'specilization' => @specilization }
+    { 'class' => self.class.name, 'id' => @id, 'name' => @name, 'age' => @age, 'specilization' => @specilization }
   end
 end

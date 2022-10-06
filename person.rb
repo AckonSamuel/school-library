@@ -30,7 +30,7 @@ class Person < Nameable
   def id
     @id
   end
-  
+
   private
 
   # rubocop:disable Naming/PredicateName

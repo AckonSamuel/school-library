@@ -5,6 +5,11 @@ require_relative 'teacher'
 require_relative 'book'
 require_relative 'rental'
 
+# rubocop:disable Metrics/PerceivedComplexity
+# rubocop:disable Metrics/CyclomaticComplexity: Method has too many lines.
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Layout/LineLength
+
 class App
   attr_accessor :rentals, :books, :people
 
@@ -12,13 +17,12 @@ class App
     @books = []
     @rentals = []
     @people = []
-    @bookArr = []
-    @rentalsArr = []
-    @peopleArr = []
-  end
+    @book_arr = []
+    @rentals_arr = []
+    @people_arr = []
+    people_load
 
-  # rubocop:disable Metrics/PerceivedComplexity
-  # rubocop:disable Metrics/CyclomaticComplexity: Method has too many lines.
+  end
 
   def list_books
     if @books.empty?
@@ -59,13 +63,13 @@ class App
       student = Student.new(age, name, parent_permission: permitt)
       @people << student
       # student.instance_variables.each { |var| @peopleHash[var.to_s.delete("@")] = student.instance_variables_get(var) }
-      @peopleArr << student.disintegrate
+      @people_arr << student.disintegrate
     when 2
       print 'Specialization: '
       spec = gets.chomp
       teacher = Teacher.new(age, name, spec, parent_permission: true)
       @people << teacher
-      @peopleArr << teacher.disintegrate
+      @people_arr << teacher.disintegrate
     end
     puts 'person created successfully'
   end
@@ -77,7 +81,7 @@ class App
     author = gets.chomp
     book = Book.new(title, author)
     @books << book
-    @bookArr << book.disintegrate
+    @book_arr << book.disintegrate
     puts 'Book created successfully'
   end
 
@@ -123,7 +127,7 @@ class App
       puts 'Sorry, You input invalid date' unless date.match?(/\d{4}-\d{2}-\d{2}/)
       rental = Rental.new(date, @books[book_index], @people[person_index])
       @rentals << rental
-      @rentalsArr << rental.disintegrate
+      @rentals_arr << rental.disintegrate
       puts 'Rental created successfully'
     else
       puts 'Cannot create rental because there are no books or people in the app' end
@@ -149,28 +153,36 @@ class App
   end
 
   def preserve
-
-    person = Foo.new('people', @peopleArr)
-    book = Foo.new('book', @bookArr)
-    rental = Foo.new('rental', @rentalsArr)
+    person = Foo.new('people', @people_arr)
+    book = Foo.new('book', @book_arr)
+    rental = Foo.new('rental', @rentals_arr)
 
     File.write('./books.json', JSON.dump(book))
     File.write('./person.json', JSON.dump(person))
     File.write('./rental.json', JSON.dump(rental))
   end
 
-  def people
-    puts "#{@peopleArr}"
+  def people_load
+    file_p = File.read('./person.json')
+    return unless file_p.length.positive?
+
+    fresh = JSON.parse(file_p)
+    fresh['data'].each do |person|
+      if person['class'] == 'Student'
+        student = Student.new(person['age'], person['name'], parent_permission: person['parent_permission'])
+        @people << student
+      end
+      next unless person['class'] == 'Teacher'
+
+      teacher = Teacher.new(person['age'], person['name'], person['name'],
+                            parent_permission: person['parent_permission'])
+      @people << teacher
+    end
   end
 
-  def rentals
-    puts "#{@rentals}"
-  end
-
-  def books
-    puts "#{@books}"
-  end
-
+  
 end
+# rubocop:enable Layout/LineLength
+# rubocop:enable Metrics/MethodLength
 # rubocop:enable Metrics/CyclomaticComplexity: Method has too many lines.
 # rubocop:enable Metrics/PerceivedComplexity

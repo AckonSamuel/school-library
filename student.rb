@@ -18,7 +18,7 @@ class Student < Person
   end
 
   def disintegrate
-    { 'id' => @id, 'name' => @name, 'age' => @age, 'parent_permission' => @parent_permission }
+    { 'class' => self.class.name, 'id' => @id, 'name' => @name, 'age' => @age,
+      'parent_permission' => @parent_permission }
   end
-
 end

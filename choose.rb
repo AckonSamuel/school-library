@@ -6,7 +6,7 @@ class Choose
     @option = ''
   end
 
-  def callup(option) # rubocop:disable Metrics/CyclomaticComplexity
+  def callup(option) # rubocop:disable Metrics/CyclomaticComplexity:
     @option = option
     case @option
     when 1
@@ -22,7 +22,7 @@ class Choose
     when 6
       APP.list_rentals_by_person_id
     when 7
-       APP.preserve
+      APP.preserve
       # puts 'Thank you for using this app!'
       # exit
     else puts 'Invalid option' end
