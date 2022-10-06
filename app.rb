@@ -21,7 +21,7 @@ class App
     @rentals_arr = []
     @people_arr = []
     people_load
-
+    book_load
   end
 
   def list_books
@@ -180,7 +180,14 @@ class App
     end
   end
 
-  
+  def book_load
+    file_b = File.read('./books.json')
+    bookss = JSON.parse(file_b)
+    bookss['data'].each do |book|
+      boo = Book.new(book['title'], book['author'])
+      @books << boo
+    end
+  end
 end
 # rubocop:enable Layout/LineLength
 # rubocop:enable Metrics/MethodLength
