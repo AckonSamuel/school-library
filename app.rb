@@ -22,6 +22,7 @@ class App
     @people_arr = []
     people_load
     book_load
+    rental_load
   end
 
   def list_books
@@ -125,7 +126,7 @@ class App
       print 'Date: '
       date = gets.chomp
       puts 'Sorry, You input invalid date' unless date.match?(/\d{4}-\d{2}-\d{2}/)
-      rental = Rental.new(date, @books[book_index], @people[person_index])
+      rental = Rental.new(date, @books[book_index], @people[person_index], person_index, book_index)
       @rentals << rental
       @rentals_arr << rental.disintegrate
       puts 'Rental created successfully'
@@ -182,12 +183,39 @@ class App
 
   def book_load
     file_b = File.read('./books.json')
+    return unless file_b.length.positive?
     bookss = JSON.parse(file_b)
     bookss['data'].each do |book|
       boo = Book.new(book['title'], book['author'])
       @books << boo
     end
   end
+
+  def compare
+
+  end
+
+  def rental_load
+    file_r = File.read('./rental.json')
+    return unless file_r.length.positive?
+
+    rents = JSON.parse(file_r)
+    rents['data'].each do |rent|
+      ren = Rental.new(rent['date'], @books[rent['book_index']], @people[rent['person_index']], rent['person_index'], rent['book_index'])
+      @rentals << ren
+    end
+
+  end
+
+  # rentals_file = File.read('./rentals.json')
+  #   return unless rentals_file.length.positive?
+
+  #   new_rentals = JSON.parse(rentals_file)
+  #   new_rentals.each do |r|
+  #     rental = Rental.new(@books[r['book_index']], @people[r['person_index']])
+  #     rentals.push(rental)
+  #   end
+
 end
 # rubocop:enable Layout/LineLength
 # rubocop:enable Metrics/MethodLength

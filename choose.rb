@@ -23,8 +23,8 @@ class Choose
       APP.list_rentals_by_person_id
     when 7
       APP.preserve
-      # puts 'Thank you for using this app!'
-      # exit
+      puts 'Thank you for using this app!'
+      exit
     else puts 'Invalid option' end
   end
 end
