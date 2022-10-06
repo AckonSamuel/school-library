@@ -11,4 +11,8 @@ class Teacher < Person
     # rubocop:enable Naming/PredicateName
     true
   end
+
+  def disintegrate
+    { 'class' => self.class.name, 'id' => @id, 'name' => @name, 'age' => @age, 'specilization' => @specilization }
+  end
 end

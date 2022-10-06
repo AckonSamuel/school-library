@@ -1,19 +1,29 @@
+require 'json'
+require_relative 'app_addition'
 require_relative 'student'
 require_relative 'teacher'
 require_relative 'book'
 require_relative 'rental'
 
-class App
+# rubocop:disable Metrics/PerceivedComplexity
+# rubocop:disable Metrics/CyclomaticComplexity: Method has too many lines.
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Layout/LineLength
+
+class App # rubocop:disable Metrics/ClassLength
   attr_accessor :rentals, :books, :people
 
   def initialize
     @books = []
     @rentals = []
     @people = []
+    @book_arr = []
+    @rentals_arr = []
+    @people_arr = []
+    people_load
+    book_load
+    rental_load
   end
-
-  # rubocop:disable Metrics/PerceivedComplexity
-  # rubocop:disable Metrics/CyclomaticComplexity: Method has too many lines.
 
   def list_books
     if @books.empty?
@@ -51,11 +61,16 @@ class App
       permitt = permitt == 'y' || 'Y' || 'n' || 'N' ? true : nil
       permitt = false if permitt == 'n' || 'N'
       # rubocop:enable Lint/LiteralAsCondition
-      @people << Student.new(age, name, parent_permission: permitt)
+      student = Student.new(age, name, parent_permission: permitt)
+      @people << student
+      # student.instance_variables.each { |var| @peopleHash[var.to_s.delete("@")] = student.instance_variables_get(var) }
+      @people_arr << student.disintegrate
     when 2
       print 'Specialization: '
       spec = gets.chomp
-      @people << Teacher.new(age, name, spec, parent_permission: true)
+      teacher = Teacher.new(age, name, spec, parent_permission: true)
+      @people << teacher
+      @people_arr << teacher.disintegrate
     end
     puts 'person created successfully'
   end
@@ -65,7 +80,9 @@ class App
     title = gets.chomp
     print 'Author: '
     author = gets.chomp
-    @books << Book.new(title, author)
+    book = Book.new(title, author)
+    @books << book
+    @book_arr << book.disintegrate
     puts 'Book created successfully'
   end
 
@@ -109,7 +126,9 @@ class App
       print 'Date: '
       date = gets.chomp
       puts 'Sorry, You input invalid date' unless date.match?(/\d{4}-\d{2}-\d{2}/)
-      @rentals << Rental.new(date, @books[book_index], @people[person_index])
+      rental = Rental.new(date, @books[book_index], @people[person_index], person_index, book_index)
+      @rentals << rental
+      @rentals_arr << rental.disintegrate
       puts 'Rental created successfully'
     else
       puts 'Cannot create rental because there are no books or people in the app' end
@@ -133,6 +152,69 @@ class App
       puts 'ID not found'
     end
   end
+
+  def preserve
+    person = Foo.new('people', @people_arr)
+    book = Foo.new('book', @book_arr)
+    rental = Foo.new('rental', @rentals_arr)
+
+    File.write('./books.json', JSON.dump(book))
+    File.write('./person.json', JSON.dump(person))
+    File.write('./rental.json', JSON.dump(rental))
+  end
+
+  def people_load
+    file_p = File.read('./person.json')
+    return unless file_p.length.positive?
+
+    fresh = JSON.parse(file_p)
+    fresh['data'].each do |person|
+      if person['class'] == 'Student'
+        student = Student.new(person['age'], person['name'], parent_permission: person['parent_permission'])
+        @people << student
+      end
+      next unless person['class'] == 'Teacher'
+
+      teacher = Teacher.new(person['age'], person['name'], person['name'],
+                            parent_permission: person['parent_permission'])
+      @people << teacher
+    end
+  end
+
+  def book_load
+    file_b = File.read('./books.json')
+    return unless file_b.length.positive?
+
+    bookss = JSON.parse(file_b)
+    bookss['data'].each do |book|
+      boo = Book.new(book['title'], book['author'])
+      @books << boo
+    end
+  end
+
+  def compare; end
+
+  def rental_load
+    file_r = File.read('./rental.json')
+    return unless file_r.length.positive?
+
+    rents = JSON.parse(file_r)
+    rents['data'].each do |rent|
+      ren = Rental.new(rent['date'], @books[rent['book_index']], @people[rent['person_index']], rent['person_index'], rent['book_index'])
+      @rentals << ren
+    end
+  end
+
+  # rentals_file = File.read('./rentals.json')
+  #   return unless rentals_file.length.positive?
+
+  #   new_rentals = JSON.parse(rentals_file)
+  #   new_rentals.each do |r|
+  #     rental = Rental.new(@books[r['book_index']], @people[r['person_index']])
+  #     rentals.push(rental)
+  #   end
 end
+# rubocop:enable Layout/LineLength
+# rubocop:enable Metrics/MethodLength
 # rubocop:enable Metrics/CyclomaticComplexity: Method has too many lines.
 # rubocop:enable Metrics/PerceivedComplexity

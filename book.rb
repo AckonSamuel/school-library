@@ -10,4 +10,8 @@ class Book
   def add_rental(rental)
     @rentals << rental
   end
+
+  def disintegrate
+    { 'id' => @id, 'title' => @title, 'author' => @author }
+  end
 end

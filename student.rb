@@ -16,4 +16,9 @@ class Student < Person
   def play_hooky
     "¯\(ツ)/¯"
   end
+
+  def disintegrate
+    { 'class' => self.class.name, 'id' => @id, 'name' => @name, 'age' => @age,
+      'parent_permission' => @parent_permission }
+  end
 end
