@@ -6,10 +6,10 @@ class Rental
     @date = date
 
     @book = book
-    @book.add_rental(self)
+    @book&.add_rental(self)
 
     @person = person
-    @person.add_rental(self)
+    @person&.add_rental(self)
 
     @person_index = person_index
 
