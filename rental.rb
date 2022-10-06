@@ -11,9 +11,9 @@ class Rental
     @person = person
     @person.add_rental(self)
 
-    @person_index = person_index 
+    @person_index = person_index
 
-    @book_index =  book_index
+    @book_index = book_index
   end
 
   def disintegrate

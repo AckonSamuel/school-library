@@ -10,7 +10,7 @@ require_relative 'rental'
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Layout/LineLength
 
-class App
+class App # rubocop:disable Metrics/ClassLength
   attr_accessor :rentals, :books, :people
 
   def initialize
@@ -184,6 +184,7 @@ class App
   def book_load
     file_b = File.read('./books.json')
     return unless file_b.length.positive?
+
     bookss = JSON.parse(file_b)
     bookss['data'].each do |book|
       boo = Book.new(book['title'], book['author'])
@@ -191,9 +192,7 @@ class App
     end
   end
 
-  def compare
-
-  end
+  def compare; end
 
   def rental_load
     file_r = File.read('./rental.json')
@@ -204,7 +203,6 @@ class App
       ren = Rental.new(rent['date'], @books[rent['book_index']], @people[rent['person_index']], rent['person_index'], rent['book_index'])
       @rentals << ren
     end
-
   end
 
   # rentals_file = File.read('./rentals.json')
@@ -215,7 +213,6 @@ class App
   #     rental = Rental.new(@books[r['book_index']], @people[r['person_index']])
   #     rentals.push(rental)
   #   end
-
 end
 # rubocop:enable Layout/LineLength
 # rubocop:enable Metrics/MethodLength

@@ -11,10 +11,6 @@ class Book
     @rentals << rental
   end
 
-  def title
-    @author
-  end
-
   def disintegrate
     { 'id' => @id, 'title' => @title, 'author' => @author }
   end
